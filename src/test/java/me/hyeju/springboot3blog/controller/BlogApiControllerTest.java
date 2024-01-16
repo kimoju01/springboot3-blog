@@ -3,6 +3,7 @@ package me.hyeju.springboot3blog.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.hyeju.springboot3blog.domain.Article;
 import me.hyeju.springboot3blog.dto.AddArticleRequest;
+import me.hyeju.springboot3blog.dto.UpdateArticleRequest;
 import me.hyeju.springboot3blog.repository.BlogRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -144,6 +145,37 @@ class BlogApiControllerTest {
 
         List<Article> articles = blogRepository.findAll();
         assertThat(articles).isEmpty();
+    }
+
+    @DisplayName("updateArticle: 블로그 글 수정에 성공한다.")
+    @Test
+    public void updateArticle() throws Exception {
+        // given: 블로그 글 저장, 수정 요청 객체 생성
+        final String url = "/api/articles/{id}";
+        final String title = "title";
+        final String content = "content";
+
+        Article savedArticle = Article.builder()
+                .title(title)
+                .content(content)
+                .build();
+        blogRepository.save(savedArticle);
+
+        final String newTitle = "new title";
+        final String newContent = "new content";
+
+        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent);
+
+        // when: 글 수정 API 호출
+        ResultActions resultActions = mockMvc.perform(put(url, savedArticle.getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(request)));
+
+        // then: 응답 코드, 값 검증
+        resultActions.andExpect(status().isOk());
+        Article article = blogRepository.findById(savedArticle.getId()).get();
+        assertThat(article.getTitle()).isEqualTo(newTitle);
+        assertThat(article.getContent()).isEqualTo(newContent);
     }
 
 
