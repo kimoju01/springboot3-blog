@@ -48,4 +48,11 @@ public class BlogApiController {
         return ResponseEntity.ok().body(new ArticleResponse(article));  // 생성자로 Article 객체 받아서 ArticleResponse 객체로 변환
     }
 
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
+        blogService.delete(id);
+
+        return ResponseEntity.ok().build();
+    }
+
 }
