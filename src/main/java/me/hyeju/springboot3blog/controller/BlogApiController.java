@@ -5,12 +5,10 @@ import me.hyeju.springboot3blog.domain.Article;
 import me.hyeju.springboot3blog.dto.AddArticleRequest;
 import me.hyeju.springboot3blog.dto.ArticleResponse;
 import me.hyeju.springboot3blog.service.BlogService;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,6 +39,13 @@ public class BlogApiController {
                 .toList();
 
         return ResponseEntity.ok().body(articles);
+    }
+
+    @GetMapping("/api/articles/{id}")
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
+        Article article = blogService.findById(id);
+
+        return ResponseEntity.ok().body(new ArticleResponse(article));  // 생성자로 Article 객체 받아서 ArticleResponse 객체로 변환
     }
 
 }
