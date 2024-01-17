@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>블로그 글</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.1.3/dist/minty/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="p-5 mb-5 text-center</> bg-light">
+    <h1 class="mb-3">My Blog</h1>
+    <h4 class="mb-3">블로그에 오신 것을 환영합니다.</h4>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <article>
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-1" th:text="${article.title}"></h1>
+                    <div class="text-muted fst-italic mb-2" th:text="|Postd on ${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm')}|"></div>
+                </header>
+                <section class="mb-5">
+                    <p class="fs-5 mb-4" th:text="${article.content}"></p>
+                </section>
+                <button type="button" class="btn btn-info btn-sm">수정</button>
+                <button type="button" class="btn btn-danger btn-sm">삭제</button>
+            </article>
+        </div>
+    </div>
+</div>
+</body>
+</html>
