@@ -29,14 +29,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     testImplementation 'org.springframework.security:spring-security-test'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.projectlombok:lombok'
+
     runtimeOnly 'com.h2database:h2'
 
     // 자바 JWT 라이브러리
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     // XML 문서 - Java 객체 간 매핑 자동화
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    // @ConfigurationProperties 어노테이션 "spring boot configuration annotation processor not configured" 에러 해결
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
 
 tasks.named('test') {
