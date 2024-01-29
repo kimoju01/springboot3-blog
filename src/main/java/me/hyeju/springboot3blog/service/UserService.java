@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.hyeju.springboot3blog.domain.User;
 import me.hyeju.springboot3blog.dto.AddUserRequest;
 import me.hyeju.springboot3blog.repository.UserRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,10 @@ public class UserService {
                 .password(bCryptPasswordEncoder.encode(request.getPassword()))
                 .build())
                 .getId();
+    }
+
+    public User findById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
     }
 
 }
