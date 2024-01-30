@@ -42,7 +42,9 @@ dependencies {
     // XML 문서 - Java 객체 간 매핑 자동화
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     // @ConfigurationProperties 어노테이션 "spring boot configuration annotation processor not configured" 에러 해결
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    // OAuth2
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 }
 
 tasks.named('test') {
