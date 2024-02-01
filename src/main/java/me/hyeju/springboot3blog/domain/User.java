@@ -29,10 +29,22 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "nickname", unique = true)
+    private String nickname;
+    // OAuth로 사용자 정보를 조회해 users 테이블에 사용자 정보가 있다면 리소스 서버에서 제공해주는 이름을 업데이트
+    // 사용자 정보가 없다면 users 테이블에 새 사용자를 생성해 DB에 저장하기 위함
+
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
+    }
+
+    public User update(String nickname) {
+        // 사용자 이름 변경
+        this.nickname = nickname;
+        return this;
     }
 
     @Override
