@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +24,8 @@ public class BlogApiController {
     @PostMapping("/api/articles")
     // ResponseEntity로 클라이언트에게 전송할 응답의 상태 코드, 헤더, 본문 등을 설정할 수 있음
     // @RequestBody는 요청할 때 본문을 자바 객체로 매핑
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
-        Article savedArticle = blogService.save(request);
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request, Principal principal) {
+        Article savedArticle = blogService.save(request, principal.getName());
 
         // 응답코드를 201로 설정하고 저장된 Article 객체를 응답 본문에 담아 클라이언트에 반환
         return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
