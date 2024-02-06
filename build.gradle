@@ -45,6 +45,8 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     // OAuth2
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    // MySQL
+    implementation 'com.mysql:mysql-connector-j'
 }
 
 tasks.named('test') {
